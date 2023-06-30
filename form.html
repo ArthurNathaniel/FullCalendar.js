@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+    <script src='script.js'></script>
+</head>
+
+<body>
+    <form id="eventForm">
+        <input type="text" id="eventName" placeholder="Event Name"><br>
+        <input type="date" id="eventDate" placeholder="Event Date (YYYY-MM-DD)"><br>
+        <button type="button" id="saveEventButton">Save</button>
+    </form>
+</body>
+
+</html>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+            var calendar = $('#calendar').fullCalendar({
+                // Calendar configuration options
+            });
+
+            // Save the event to local storage and render it on the calendar
+            $('#saveEventButton').on('click', function () {
+                var eventName = $('#eventName').val();
+                var eventDate = $('#eventDate').val();
+
+                // Check if the event name and date are provided
+                if (eventName && eventDate) {
+                    // Save the event to local storage
+                    var events = JSON.parse(localStorage.getItem('events')) || [];
+                    events.push({ title: eventName, start: eventDate });
+                    localStorage.setItem('events', JSON.stringify(events));
+
+                    // Redirect back to the index.html page
+                    window.location.href = 'index.html';
+                }
+            });
+        });
+
+</script>
